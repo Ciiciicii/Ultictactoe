@@ -83,6 +83,6 @@ if __name__ == "__main__":
 
     winner = ttt.check_for_winner()
     if winner == -2: 
-        print(f"Tie!!")
+        print(f"Tie!")
     else:
         print(f"Winner: {winner}")

@@ -96,6 +96,6 @@ if __name__ == "__main__":
         uttt.visualize_grid()
         if uttt.check_for_winner() is not None:
             break
-    print("The winner is", uttt.check_for_winner())
+    print("Winner:", uttt.check_for_winner())
 
 
