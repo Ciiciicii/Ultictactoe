@@ -32,7 +32,7 @@ class TicTacToe:
 
     def check_for_winner(self) -> int | None:
         def connected_triplet(triplet: list[int] | tuple[int, int, int]) -> bool:
-            if -1 in triplet:
+            if -1 in triplet or -2 in triplet:
                 return False
             if len(set(triplet)) == 1:
                 return True
