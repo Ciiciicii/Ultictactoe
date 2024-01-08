@@ -15,7 +15,6 @@ class UlTicTacToe:
 
         self.active_grid_id = 4
         self.active_grid = self.all_grids[4]
-        self.player = 1
 
     def __repr__(self) -> str:
         str_grid = ""
@@ -38,7 +37,7 @@ class UlTicTacToe:
             (self.active_grid_id,) + move for move in self.active_grid.query_moves()
         ]
 
-    def make_move(self, index: list[int], player: int):
+    def make_move(self, index: list[int], player: int) -> int:
         if len(index) != 2:
             raise ValueError("argument index must have a length of 2")
         
@@ -50,13 +49,15 @@ class UlTicTacToe:
 
         r, c = index
         self.active_grid.make_move(index, player)
+
         active_grid_winner = self.active_grid.check_for_winner()
         if active_grid_winner is not None:
             self.master_grid.make_move(self.last_index, active_grid_winner)
 
         self.last_index = index
-        self.active_grid_id = r * 3 + c
-        self.active_grid = self.all_grids[self.active_grid_id]
+        self.change_active_grid(r * 3 + c)
+
+        return active_grid_winner
 
     def active_grid_finished(self) -> bool:
         if self.last_index is None:
