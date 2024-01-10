@@ -137,7 +137,10 @@ class GameUI:
 
         token = {1: "X", 0: "O"}
         if winner is not None:
-            text = f"{token[winner]}'s win"
+            if winner == -2:
+                text = "Tie"
+            else:
+                text = f"{token[winner]}'s win"
         else:
             text = f"{token[self.player]}'s turn"
 

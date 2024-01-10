@@ -80,25 +80,3 @@ class UlTicTacToe:
         print(self)
 
 
-if __name__ == "__main__":
-    uttt = UlTicTacToe()
-    player = 1
-    for _ in range(25):
-        if uttt.active_grid_finished():
-            grid_num = int(input(f"Player {player}: Select active grid: "))
-            uttt.change_active_grid(grid_num)
-        move = input(f"Player {player}: Enter move:  ")
-        move = int(move)
-        id1, id2 = int(move // 10), int(move % 10)
-        try:
-            uttt.make_move(index=(id1, id2), player=player)
-        except ValueError:
-            print("Invalid move")
-            continue
-        player = 1 - player
-        uttt.visualize_grid()
-        if uttt.check_for_winner() is not None:
-            break
-    print("Winner:", uttt.check_for_winner())
-
-
