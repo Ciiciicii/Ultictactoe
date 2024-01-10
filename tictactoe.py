@@ -1,7 +1,6 @@
 class TicTacToe:
     def __init__(self) -> None:
         self.grid = [[-1] * 3 for _ in range(3)]
-        self.moves = None
         self.winner = None
 
     def __repr__(self) -> str:
@@ -9,23 +8,20 @@ class TicTacToe:
         return "\n".join("".join(marks[i] for i in row) for row in self.grid)
 
     def query_moves(self) -> list[tuple]:
-        self.moves = []
+        moves = []
         for i in range(3):
             for j in range(3):
                 if self.grid[i][j] == -1:
-                    self.moves.append((i, j))
-        return self.moves
+                    moves.append((i, j))
+        return moves
 
     def make_move(self, index: list[int], player: int) -> None:
         if len(index) != 2:
             raise ValueError("argument index must have a length of 2")
-        if self.moves is None:
-            self.query_moves()
-        if index not in self.moves:
+        if index not in self.query_moves():
             raise ValueError(f"argument index: {index} is an illegal move.")
         r, c = index
         self.grid[r][c] = player
-        self.moves.remove((r, c))            
 
     def visualize_grid(self) -> None:
         print(self)        

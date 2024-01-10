@@ -11,7 +11,6 @@ class UlTicTacToe:
         self.master_grid = TicTacToe()
         self.all_grids = [TicTacToe() for _ in range(9)]
         self.winner = None
-        self.last_index = None
 
         self.active_grid_id = 4
         self.active_grid = self.all_grids[4]
@@ -41,28 +40,27 @@ class UlTicTacToe:
         if len(index) != 2:
             raise ValueError("argument index must have a length of 2")
         
-        grid = self.active_grid_id
-        move_id = (grid,) + tuple(index)
-
+        grid_id = self.active_grid_id
+        move_id = (grid_id,) + tuple(index)
+        
         if move_id not in self.query_moves():
-            raise ValueError(f"argument grid, index: {grid, index} is an illegal move.")
+            raise ValueError(f"argument grid, index: {move_id} is an illegal move.")
 
         r, c = index
         self.active_grid.make_move(index, player)
 
         active_grid_winner = self.active_grid.check_for_winner()
         if active_grid_winner is not None:
-            self.master_grid.make_move(self.last_index, active_grid_winner)
+            master_grid_index = grid_id // 3, grid_id % 3
+            self.master_grid.make_move(master_grid_index, active_grid_winner)
 
-        self.last_index = index
         self.change_active_grid(r * 3 + c)
 
         return active_grid_winner
 
     def active_grid_finished(self) -> bool:
-        if self.last_index is None:
-            return False
-        r, c = self.last_index
+        grid_id = self.active_grid_id
+        r, c = grid_id // 3, grid_id % 3
         if self.master_grid.grid[r][c] == -1:
             return False
         return True
@@ -70,6 +68,10 @@ class UlTicTacToe:
     def change_active_grid(self, grid: int) -> None:
         self.active_grid_id = grid
         self.active_grid = self.all_grids[grid]
+    
+    def list_unfinished_grids(self) -> list:
+        unfinished_grids = [i * 3 + j for i in range(3) for j in range(3) if self.master_grid.grid[i][j] == -1]
+        return unfinished_grids
 
     def check_for_winner(self) -> int | None:
         return self.master_grid.check_for_winner()
