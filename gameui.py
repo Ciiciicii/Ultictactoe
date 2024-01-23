@@ -15,8 +15,8 @@ class GameUI:
 
         self.font = pygame.font.SysFont("Source Sans Pro", 40)
         # self.colors = {"bg": "#092635", "accent": "#1B4242", "light": "#9EC8B9"}
-        # self.colors = {"bg": "#386641", "accent": "#6A994E", "light": "#A7C957"}
-        self.colors = {"bg": "#766153", "accent": "#A08470", "light": "#BCBD8B"}
+        self.colors = {"bg": "#386641", "accent": "#6A994E", "light": "#A7C957"}
+        # self.colors = {"bg": "#766153", "accent": "#A08470", "light": "#BCBD8B"}
         # self.colors = {"bg": "#772F1A", "accent": "#F58549", "light": "#F2A65A"}f
         self.running = True
 
